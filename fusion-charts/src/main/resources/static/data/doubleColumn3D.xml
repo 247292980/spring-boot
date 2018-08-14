@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>  
+<chart caption='2012年和2013年统计收入' xAxisName='月份' yAxisName='收入' showValues='0' baseFont='微软雅黑' baseFontSize='14'  
+       baseFontColor='#00FF00' outCnvBaseFont='宋体' outCnvBaseFontSize='16' outCnvBaseFontColor='#798777' showAboutMenuItem='1'  
+       showLabels='1' labelDisplay='ROTATE ' useEllipsesWhenOverflow='1' rotateLabels='1' slantLabels='1' staggerLines='2'  
+       labelStep='1' placeValuesInside='1' showYAxisValues='1' showLimits='1' showDivLineValues='1' showShadow='1' adjustDiv='1'  
+       setAdaptiveYMin='1' centerYaxisName='1' useRoundEdges='1' numDivLines='8' divLineColor='#987989' divLineIsDashed='1'>  
+  
+   <categories>  
+      <category label='一月' />  
+      <category label='二月' />  
+      <category label='三月' />  
+      <category label='四月' />  
+      <category label='五月' />  
+      <category label='六月' />  
+      <category label='七月' />  
+      <category label='八月' />  
+      <category label='九月' />  
+      <category label='十月' />  
+      <category label='十一月' />  
+      <category label='十二月' />  
+   </categories>  
+  
+   <dataset seriesName='2012'>  
+      <set value='45155' />  
+      <set value='12452'/>  
+      <set value='63455' />  
+      <set value='45233' />  
+      <set value='95656' />  
+      <set value='87545' />  
+      <set value='12425' />  
+      <set value='94633' />  
+      <set value='85452' />  
+      <set value='75455' />  
+      <set value='32312' />  
+      <set value='65625' />  
+   </dataset>  
+  
+   <dataset seriesName='2013'>  
+      <set value='65655'/>  
+      <set value='74555'/>  
+      <set value='61245'/>  
+      <set value='12451'/>  
+      <set value='95656' />  
+      <set value='24655' />  
+      <set value='45122' />  
+      <set value='32656' />  
+      <set value='65656' />  
+      <set value='95666' />  
+      <set value='65323' />  
+      <set value='54656' />  
+   </dataset>  
+  
+</chart> 

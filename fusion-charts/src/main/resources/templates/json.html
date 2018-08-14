@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width">
+    <title>3D双柱图json</title>
+    <script type="text/javascript" src="/Charts/jquery-1.7.2.js"></script>
+    <script type="text/javascript" src="/Charts/FusionCharts.js"></script>
+</head>
+<body>
+<script type="text/javascript">
+    $(function () {
+        var column3D = new FusionCharts("/Charts/MSColumn3D.swf", "myChartId", "100%", "520", "0");
+        var jsonData = {
+            "chart": {
+                "caption": "Sales in Last Two Years",
+                "subcaption": "Quarter-wise comparison",
+                "xaxisname": "Quarter",
+                "yaxisname": "Sales (In USD)",
+                "palette": "2",
+                "numberprefix": "$",
+                "yaxismaxvalue": "32000",
+                "numdivlines": "3",
+            },
+            "categories": [
+                {
+                    "category": [
+                        {
+                            "label": "Q1"
+                        },
+                        {
+                            "label": "Q2"
+                        },
+                        {
+                            "label": "Q3"
+                        },
+                        {
+                            "label": "Q4"
+                        }
+                    ]
+                }
+            ],
+            "dataset": [
+                {
+                    "seriesname": "Previous Year",
+                    "data": [
+                        {
+                            "value": "10000"
+                        },
+                        {
+                            "value": "11500"
+                        },
+                        {
+                            "value": "12500"
+                        },
+                        {
+                            "value": "15000"
+                        }
+                    ]
+                },
+                {
+                    "seriesname": "Current Year",
+                    "data": [
+                        {
+                            "value": "25400"
+                        },
+                        {
+                            "value": "29800"
+                        },
+                        {
+                            "value": "21800"
+                        },
+                        {
+                            "value": "26800"
+                        }
+                    ]
+                }
+            ]
+
+        };
+
+        column3D.setJSONData(jsonData);
+
+        column3D.render("doubleColumn3DChart");
+        console.log(column3D);
+    });
+</script>
+<div id="doubleColumn3DChart"></div>
+</body>
+</html>

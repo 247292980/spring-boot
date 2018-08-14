@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="/js/vue.min.js"></script>
+</head>
+<style>
+    .class1 {
+        background: #444;
+        color: #eee;
+    }
+</style>
+<body>
+<div id="app">
+    <p>{{ message }}</p>
+    <input v-model="message"/>
+    <br><br>
+
+    <div v-html="htmlMsg"></div>
+    <br><br>
+
+    <label for="ck1">修改颜色</label>
+    <input id="ck1" type="checkbox" v-model="isClass1">
+    <div v-bind:class="{class1: isClass1}">
+        directiva v-bind:class
+    </div>
+    <!--双向绑定-->
+    <!--vue的data绑定的数据，被其全局代理，即r1值变为true时，isClass1也等于true-->
+    <br><br>
+
+    <!--<button v-on:click="counter += 1">点一下</button>-->
+    <button v-on:click="count">点一下</button>
+    <p>这个按钮被点击了 {{ counter }} 次。</p>
+    <br><br>
+</div>
+<!-- vue的JavaScript 代码需要放在尾部（指定的HTML元素之后） -->
+<script src="/js/mvvc.js"></script>
+</body>
+</html>

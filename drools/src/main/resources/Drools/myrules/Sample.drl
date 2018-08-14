@@ -1,0 +1,16 @@
+package com.sample.rules
+
+import com.lgp.drools.pojo.Message
+ 
+rule "Hello World"
+    when
+        $m : Message( status == Message.HELLO, $myMessage : message )
+    then
+        System.out.println( "myrules.sample.drl begin" );
+        System.out.println( $myMessage);
+        $m.setMessage( "Goodbye world" );
+        $m.setStatus( Message.GOODBYE );
+        update( $m );
+        System.out.println( "myrules.sample.drl end" );
+end
+

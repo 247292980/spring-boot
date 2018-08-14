@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width">
+    <title>3D双柱图xml</title>
+    <script type="text/javascript" src="/Charts/jquery-1.7.2.js"></script>
+    <script type="text/javascript" src="/Charts/FusionCharts.js"></script>
+    <!-- fusioncharts 的坑
+         swf，js父目录一定是Charts
+         xml父目录一定是data
+         浏览器一定要装flash player
+         就算装了flash player浏览器现在都很良心的默认禁止，必须要网页申请权限 或者 浏览器自己打开-->
+    <script type="text/javascript">
+        $(function () {
+            FusionCharts.debugMode.enabled(true);
+            FusionCharts.debugMode.outputTo(function () {
+                console.log(arguments);
+            });
+
+            var myChart = new FusionCharts("../Charts/MSColumn3D.swf", "54356345", "100%", "520", "0");
+            myChart.setXMLUrl("doubleColumn3D.xml");
+            // myChart.setXMLUrl("/data/doubleColumn3D.xml");
+            myChart.render("chart");
+            console.log(myChart);
+        });
+    </script>
+</head>
+<body>
+<div id="chart"></div>
+</body>
+</html>

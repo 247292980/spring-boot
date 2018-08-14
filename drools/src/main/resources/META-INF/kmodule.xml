@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kmodule xmlns="http://www.drools.org/xsd/kmodule">
+    <!--<kmodule xmlns="http://jboss.org/kie/6.0.0/kmodule">-->
+    <!--这玩意一定要放在META-INF里面-->
+    <!--name kbase的唯一标志
+    packages 路径必须正确可少写可多写可不写
+    不写的话放于根目录（不建议）
+    ksession 的唯一标记-->
+    <!--<kbase name="rules" packages="Drools.rules">-->
+    <kbase name="rules" packages="rules">
+        <!--<kbase name="rules" packages="">-->
+        <!--<kbase name="rules" packages="myrules">-->
+        <!--默认用最后一个-->
+        <!--<kbase name="rules" packages="rules,myrules">-->
+        <ksession name="ksession-rules"/>
+    </kbase>
+
+
+    <kbase name="dtables" packages="dtables">
+        <ksession name="ksession-dtables"/>
+    </kbase>
+    <kbase name="process" packages="process">
+        <ksession name="ksession-process"/>
+    </kbase>
+</kmodule>
