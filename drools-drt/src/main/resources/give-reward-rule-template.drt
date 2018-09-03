@@ -1,0 +1,38 @@
+template header
+
+rule
+accumulateFlag
+eventType
+ruleCode
+ruleId
+awardeeType
+priority
+beginTime
+endTime
+
+
+package com.lgp.droolsdrt.engineer;
+
+
+import  com.lgp.droolsdrt.util.ActivityContextUtil;
+import  com.lgp.droolsdrt.fact.CustomerInfo;
+import  com.lgp.droolsdrt.fact.RegisterFact;
+import  com.lgp.droolsdrt.fact.BaseFact;
+//import  com.lgp.droolsdrt.service.PrizeSendService;
+
+global com.lgp.droolsdrt.engineer.RuleExecuteGlobal globalParams;
+
+template "judge condition"
+
+rule "judge_@{ruleCode}"
+date-effective "@{beginTime}"
+date-expires "@{endTime}"
+when
+   @{eventType}(@{rule})
+then
+   System.out.println("发送奖励" +  @{awardeeType});
+   //发奖品
+   //ActivityContextUtil.getBean(PrizeSendService.class).sendAward(globalParams.getUserId(), @{ruleId}, globalParams.getOrderId(), @{awardeeType});
+end
+
+end template

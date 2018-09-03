@@ -2,13 +2,14 @@ package com.lgp.droolsdrt.controller;
 
 import com.alibaba.fastjson.JSON;
 import com.lgp.droolsdrt.domain.ActivityRule;
-import com.lgp.droolsdrt.mapper.ActivityRuleMapper;
+import com.lgp.droolsdrt.service.TestService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -20,14 +21,37 @@ import java.util.Map;
 @RequestMapping(value = "")
 public class TestController {
     public static final Logger log = LoggerFactory.getLogger(TestController.class);
+    //    @Autowired
+//    ActivityRuleMapper activityRuleMapper;
     @Autowired
-    ActivityRuleMapper activityRuleMapper;
+    TestService testService;
 
-    @RequestMapping("/mysql")
-    public String mysql(Map<String, Object> map) {
-        ActivityRule activityRule = activityRuleMapper.selectByPrimaryKey(1);
+    @RequestMapping("/select1")
+    public String select1(Map<String, Object> map) {
+        ActivityRule activityRule = testService.select1();
         map.put("hello", JSON.toJSON(activityRule));
         log.info("activityRule={}", JSON.toJSON(activityRule));
+        return "/index";
+    }
+
+    @RequestMapping("/loadRule")
+    public String loadRule(Map<String, Object> map) {
+        testService.loadRule();
+        map.put("hello", " loadRule");
+        return "/index";
+
+    }    @RequestMapping("/useRule")
+    public String useRule(Map<String, Object> map) {
+        testService.useRule();
+        map.put("hello", " useRule");
+        return "/index";
+    }
+
+    @RequestMapping("/selectAll")
+    public String selectAll(Map<String, Object> map) {
+        List<ActivityRule> list = testService.selectAll();
+        map.put("hello", JSON.toJSON(list));
+        log.info("list={}", JSON.toJSON(list));
         return "/index";
     }
 

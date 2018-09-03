@@ -5,7 +5,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-@MapperScan("com.lgp.droolsdrt.mapper")
+//@MapperScan("com.lgp.droolsdrt.mapper")
 public class DroolsDrtApplication {
 
 	public static void main(String[] args) {
