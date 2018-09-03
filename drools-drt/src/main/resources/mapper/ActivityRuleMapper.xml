@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lgp.droolsdrt.mapper.ActivityRuleMapper">
+    <resultMap id="BaseResultMap" type="com.lgp.droolsdrt.domain.ActivityRule">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="task_id" property="taskId" jdbcType="BIGINT"/>
+        <result column="event" property="event" jdbcType="VARCHAR"/>
+        <result column="rule_value" property="ruleValue" jdbcType="VARCHAR"/>
+        <result column="priority" property="priority" jdbcType="TINYINT"/>
+        <result column="awardee_type" property="awardeeType" jdbcType="TINYINT"/>
+        <result column="send_award_times" property="sendAwardTimes" jdbcType="TINYINT"/>
+        <result column="create_by" property="createBy" jdbcType="VARCHAR"/>
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
+        <result column="update_by" property="updateBy" jdbcType="VARCHAR"/>
+        <result column="update_time" property="updateTime" jdbcType="TIMESTAMP"/>
+        <result column="is_delete" property="isDelete" jdbcType="CHAR"/>
+        <result column="is_sms_notice" property="isSmsNotice" jdbcType="CHAR"/>
+    </resultMap>
+
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+    select 
+      id, task_id, event, rule_value, priority, awardee_type, send_award_times, create_by,
+      create_time, update_by, update_time, is_delete, is_sms_notice
+    from activity_rule
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+
+</mapper>
