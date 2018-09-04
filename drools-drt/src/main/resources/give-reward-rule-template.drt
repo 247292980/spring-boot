@@ -29,11 +29,12 @@ date-expires "@{endTime}"
 when
    @{eventType}(@{rule})
 then
-   System.out.println("发送奖励" +  @{awardeeType});
+
    //此处修改result值不太对，应该在下面这些方法设置
    //globalParams.getResult().setSuccess(1);
    //发奖品
    ActivityContextUtil.getBean(PrizeSendService.class).sendAward(globalParams,@{awardeeType});
+   System.out.println("发送奖励" +  @{awardeeType});
 end
 
 end template

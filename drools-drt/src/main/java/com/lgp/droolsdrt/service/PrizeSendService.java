@@ -21,15 +21,15 @@ public class PrizeSendService {
 
         switch (awardeeType) {
             case 1:
-                System.out.println("老板，内部操作为一等奖");
+                System.out.print("老板，内部操作为一等奖--");
                 global.getResult().addSuccess();
                 break;
             case 2:
-                System.out.println("员工，就你也想得奖？");
+                System.out.print("员工，就你也想得奖？--");
                 global.getResult().addSuccess();
                 break;
             default:
-                System.out.println("出错了！！1");
+                System.out.print("出错了！！--");
                 global.getResult().addFailure();
                 break;
         }
