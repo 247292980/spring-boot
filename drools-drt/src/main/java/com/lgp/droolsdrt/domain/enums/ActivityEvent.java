@@ -1,4 +1,4 @@
-package com.lgp.droolsdrt.fact;
+package com.lgp.droolsdrt.domain.enums;
 
 /**
  * 事件。命名规则约定：枚举命名长度不得超过15。
@@ -9,6 +9,7 @@ public enum ActivityEvent {
      * 注册
      */
 
+    BASE("基础", "base", (byte) 0),
     REGISTER("注册", "regist", (byte) 1),
 
     ;

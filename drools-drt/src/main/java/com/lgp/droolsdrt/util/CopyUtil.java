@@ -7,9 +7,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * 通用方法工具类
- *
- * @author liuzifeng
+ * copy工具类
  */
 public class CopyUtil {
 

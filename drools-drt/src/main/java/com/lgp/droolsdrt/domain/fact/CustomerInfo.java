@@ -1,7 +1,8 @@
-package com.lgp.droolsdrt.fact;
+package com.lgp.droolsdrt.domain.fact;
 
 import com.lgp.droolsdrt.annotation.Fact;
 import com.lgp.droolsdrt.annotation.FactProperty;
+import com.lgp.droolsdrt.domain.enums.ActivityEvent;
 
 import java.util.Date;
 import java.util.Set;
@@ -10,10 +11,8 @@ import java.util.Set;
  * @AUTHOR lgp
  * 客户基本信息
  **/
-@Fact(value = ActivityEvent.REGISTER, prefix = "cust")
+@Fact(value = ActivityEvent.BASE, prefix = "cust")
 public class CustomerInfo {
-
-    private static final long serialVersionUID = 8519334321117301310L;
 
     @FactProperty(desc = "出生月份", format = "例：cust.bornMonth == 6", optionalValue = {"1-12整数"})
     private Integer bornMonth;

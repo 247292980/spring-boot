@@ -23,17 +23,12 @@ public class DateUtil {
     public static final String FormatDateTimeNOSecond = "yyyy-MM-dd HH:mm";
     public static final String FormatDateTimeMsec = "yyyy-MM-dd HH:mm:ss.S";
     public static final String FormatDateTimeDate = "MM-dd";
-
     public static final String FormatDateYMD = "yyyy年MM月dd日";
-
     public static final String GeneralFormatDateTime = "y-M-d H:m:s";
     public static final String GeneralFormatDate = "y-M-d";
     public static final String GeneralSlashFormatDateTime = "y/M/d H:m:s";
     public static final String GeneralSlashFormatDate = "y/M/d";
 
-
-    private DateUtil() {
-    }
 
     /**
      * 取当前时间，格式 2015-12-02 16:53:51.0452503

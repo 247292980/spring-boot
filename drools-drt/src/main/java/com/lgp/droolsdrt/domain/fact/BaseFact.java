@@ -1,4 +1,4 @@
-package com.lgp.droolsdrt.fact;
+package com.lgp.droolsdrt.domain.fact;
 
 /**
  * 基类fact

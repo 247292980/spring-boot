@@ -1,6 +1,6 @@
 package com.lgp.droolsdrt.annotation;
 
-import com.lgp.droolsdrt.fact.ActivityEvent;
+import com.lgp.droolsdrt.domain.enums.ActivityEvent;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

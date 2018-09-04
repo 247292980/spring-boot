@@ -3,19 +3,18 @@ package com.lgp.droolsdrt.service;
 import com.alibaba.fastjson.JSON;
 import com.lgp.droolsdrt.annotation.Fact;
 import com.lgp.droolsdrt.domain.ActivityRule;
-import com.lgp.droolsdrt.domain.RegisterMQDTO;
+import com.lgp.droolsdrt.domain.RegisterMqDTO;
 import com.lgp.droolsdrt.domain.RuleDTO;
-import com.lgp.droolsdrt.engineer.RuleExecutor;
-import com.lgp.droolsdrt.engineer.RuleExecutorResult;
-import com.lgp.droolsdrt.fact.BaseFact;
-import com.lgp.droolsdrt.fact.RegisterFact;
+import com.lgp.droolsdrt.executor.RuleExecutor;
+import com.lgp.droolsdrt.domain.RuleExecutorResult;
+import com.lgp.droolsdrt.domain.fact.BaseFact;
+import com.lgp.droolsdrt.domain.fact.RegisterFact;
 import com.lgp.droolsdrt.generator.RuleGenerator;
 import com.lgp.droolsdrt.util.CopyUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.util.Assert;
 
 import java.time.LocalDateTime;
 import java.time.ZoneId;
@@ -64,7 +63,7 @@ public class RuleService {
         /**
          * 此处应当是从其他服务获取的的消息体，而不是空值
          * */
-        RegisterMQDTO domain = new RegisterMQDTO();
+        RegisterMqDTO domain = new RegisterMqDTO();
         domain.setTelephone(phone);
         try {
             /*可以知道一条信息，匹配了多少个规则，成功了几个*/
@@ -98,10 +97,10 @@ public class RuleService {
     /**
      * 执行前
      */
-    public RuleExecutorResult beforeExecute(String orderId, BaseFact fact, RegisterMQDTO domain) {
+    public RuleExecutorResult beforeExecute(String orderId, BaseFact fact, RegisterMqDTO domain) {
         RegisterFact registerFact = buildRegisterFact(domain);
         CopyUtil.copyPropertiesCglib(fact, registerFact);
-        log.info("RuleService|beforeExecute|{}事件的orderId={}, RegisterMQDTO={}", registerFact.getClass().getAnnotation(Fact.class).value(), orderId, domain);
+        log.info("RuleService|beforeExecute|{}事件的orderId={}, RegisterMqDTO={}", registerFact.getClass().getAnnotation(Fact.class).value(), orderId, domain);
         return RuleExecutor.execute(registerFact, orderId);
     }
 
@@ -119,7 +118,7 @@ public class RuleService {
     /**
      * 生成初始的registerFact
      */
-    private RegisterFact buildRegisterFact(RegisterMQDTO domain) {
+    private RegisterFact buildRegisterFact(RegisterMqDTO domain) {
         RegisterFact registerFact = new RegisterFact();
 
         CopyUtil.copyPropertiesCglib(domain, registerFact);

@@ -2,8 +2,8 @@ package com.lgp.droolsdrt.generator;
 
 import com.lgp.droolsdrt.domain.ActivityRule;
 import com.lgp.droolsdrt.domain.RuleDTO;
-import com.lgp.droolsdrt.engineer.RuleExecutor;
-import com.lgp.droolsdrt.fact.EventPropertyManager;
+import com.lgp.droolsdrt.executor.RuleExecutor;
+import com.lgp.droolsdrt.manager.FactManager;
 import com.lgp.droolsdrt.util.DateUtil;
 import org.drools.template.ObjectDataCompiler;
 import org.kie.api.KieServices;
@@ -61,7 +61,7 @@ public class RuleGenerator {
         data.put("ruleCode", ruleDTO.hashCode());
         data.put("beginTime", DateUtil.dateToStringFormat(ruleDTO.getBeginTime(), "dd-MMM-yyyy"));
         data.put("endTime", DateUtil.dateToStringFormat(ruleDTO.getEndTime(), "dd-MMM-yyyy"));
-        data.put("eventType", EventPropertyManager.getFactClassByEvent(rule.getEvent()).getName());
+        data.put("eventType", FactManager.getFactClassByEvent(rule.getEvent()).getName());
         data.put("rule", rule.getRuleValue());
         data.put("awardeeType", rule.getAwardeeType());
 //         累计标志: 0 累计标志- 不累计, 1 - 累计金额, 2 - 累计签到天数

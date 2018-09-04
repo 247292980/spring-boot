@@ -1,8 +1,9 @@
-package com.lgp.droolsdrt.fact;
+package com.lgp.droolsdrt.domain.fact;
 
 import com.lgp.droolsdrt.annotation.Fact;
 import com.lgp.droolsdrt.annotation.FactProperty;
 import com.lgp.droolsdrt.annotation.NotNull;
+import com.lgp.droolsdrt.domain.enums.ActivityEvent;
 
 import java.util.Date;
 

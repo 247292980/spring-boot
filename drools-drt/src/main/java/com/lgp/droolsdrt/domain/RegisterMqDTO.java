@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
  * @DATE 2018/6/29 11:15
  * @DESCRIPTION 消息中间件的信息结构
  **/
-public class RegisterMQDTO {
+public class RegisterMqDTO {
     private String userId;
     private String telephone;
     /*format yyyy-MM-dd hh:mm:ss

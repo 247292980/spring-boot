@@ -1,7 +1,9 @@
-package com.lgp.droolsdrt.fact;
+package com.lgp.droolsdrt.manager;
 
 import com.lgp.droolsdrt.annotation.Fact;
 import com.lgp.droolsdrt.annotation.FactProperty;
+import com.lgp.droolsdrt.domain.PropertyBean;
+import com.lgp.droolsdrt.domain.fact.RegisterFact;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
@@ -12,19 +14,20 @@ import java.util.Map;
 /**
  * @AUTHOR lgp
  * @DATE 2018/9/3 16:10
- * @DESCRIPTION 事件属性管理
+ * @DESCRIPTION 事件管理
  **/
-public class EventPropertyManager {
+public class FactManager {
 
-    private static Map<String, List<PropertyViewBean>> propertiesMap = new HashMap<>();
-    private static List<PropertyViewBean> commonList = new ArrayList<>();
+    private static Map<String, List<PropertyBean>> propertiesMap = new HashMap<>();
+    private static List<PropertyBean> commonList = new ArrayList<>();
     private static List<Class> factList = new ArrayList<>(20);
     private static Map<String, Class> eventFactMap = new HashMap<>();
 
     static {
         factList.add(RegisterFact.class);
         initFactDescription();
-        commonList.addAll(buildPropertyView(CustomerInfo.class));
+//        这个例子没有用到CustomerInfo，CustomerInfo应该在登陆后的规则使用，因为其无用故注释，但是项目逻辑有用故保留
+//        commonList.addAll(buildProperty(CustomerInfo.class));
     }
 
     /**
@@ -34,16 +37,16 @@ public class EventPropertyManager {
         for (Class c : factList) {
             Fact fact = (Fact) c.getAnnotation(Fact.class);
             eventFactMap.put(fact.value().toString(), c);
-            propertiesMap.put(fact.value().toString(), buildPropertyView(c));
+            propertiesMap.put(fact.value().toString(), buildProperty(c));
         }
     }
 
-    private static List<PropertyViewBean> buildPropertyView(Class c) {
-        List<PropertyViewBean> list = new ArrayList<>();
+    private static List<PropertyBean> buildProperty(Class c) {
+        List<PropertyBean> list = new ArrayList<>();
         Fact fact = (Fact) c.getAnnotation(Fact.class);
         Field[] fields = c.getDeclaredFields();
         for (Field f : fields) {
-            PropertyViewBean pb = new PropertyViewBean();
+            PropertyBean pb = new PropertyBean();
             FactProperty propertyAnnno = f.getAnnotation(FactProperty.class);
             if (propertyAnnno == null) {
                 continue;
@@ -73,21 +76,21 @@ public class EventPropertyManager {
         return list;
     }
 
-    public static void addBean(String eventName, PropertyViewBean bean) {
-        List<PropertyViewBean> beans = propertiesMap.computeIfAbsent(eventName, (key) -> new ArrayList<>());
+    public static void addBean(String eventName, PropertyBean bean) {
+        List<PropertyBean> beans = propertiesMap.computeIfAbsent(eventName, (key) -> new ArrayList<>());
         beans.add(bean);
     }
 
-    public static Map<String, List<PropertyViewBean>> getPropertiesMap() {
+    public static Map<String, List<PropertyBean>> getPropertiesMap() {
         return propertiesMap;
     }
 
-    public static List<PropertyViewBean> getCommonList() {
+    public static List<PropertyBean> getCommonList() {
         return commonList;
     }
 
-    public static void setCommonList(List<PropertyViewBean> commonList) {
-        EventPropertyManager.commonList = commonList;
+    public static void setCommonList(List<PropertyBean> commonList) {
+        FactManager.commonList = commonList;
     }
 
     public static Class getFactClassByEvent(String event) {

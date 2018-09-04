@@ -15,11 +15,11 @@ package com.lgp.droolsdrt.engineer;
 
 
 import  com.lgp.droolsdrt.util.ActivityContextUtil;
-import  com.lgp.droolsdrt.fact.RegisterFact;
-import  com.lgp.droolsdrt.fact.BaseFact;
+import  com.lgp.droolsdrt.domain.fact.RegisterFact;
+import  com.lgp.droolsdrt.domain.fact.BaseFact;
 import  com.lgp.droolsdrt.service.PrizeSendService;
 
-global com.lgp.droolsdrt.engineer.RuleExecuteGlobal globalParams;
+global com.lgp.droolsdrt.domain.RuleExecuteGlobal globalParams;
 
 template "judge condition"
 

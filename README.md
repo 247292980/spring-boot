@@ -29,4 +29,6 @@ spring-boot型hello world？外加打算加各种各样的功能代码。
 
 12. Aspect             两种切面我都写上去了。主要了解，标签的那种用法。
 
+12. drools-drt         动态生成规则文件，代码逻辑。
+
 

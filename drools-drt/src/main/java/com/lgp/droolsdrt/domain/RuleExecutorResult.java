@@ -1,4 +1,4 @@
-package com.lgp.droolsdrt.engineer;
+package com.lgp.droolsdrt.domain;
 
 /**
  * 规则执行结果

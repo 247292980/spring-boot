@@ -1,11 +1,11 @@
-package com.lgp.droolsdrt.fact;
+package com.lgp.droolsdrt.domain;
 
 /**
  * @AUTHOR lgp
  * @DATE 2018/9/3 16:10
- * @DESCRIPTION fact类的属性描述类
+ * @DESCRIPTION 属性描述类
  **/
-public class PropertyViewBean {
+public class PropertyBean {
 
     private String name;
 

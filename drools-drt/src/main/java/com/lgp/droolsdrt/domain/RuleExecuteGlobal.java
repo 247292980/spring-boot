@@ -1,7 +1,7 @@
-package com.lgp.droolsdrt.engineer;
+package com.lgp.droolsdrt.domain;
 
 
-import com.lgp.droolsdrt.fact.BaseFact;
+import com.lgp.droolsdrt.domain.fact.BaseFact;
 
 /**
  * 丢到规则去匹配的数据
