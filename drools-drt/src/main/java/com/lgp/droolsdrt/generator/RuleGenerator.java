@@ -1,18 +1,15 @@
 package com.lgp.droolsdrt.generator;
 
-import com.alibaba.fastjson.JSON;
 import com.lgp.droolsdrt.domain.ActivityRule;
 import com.lgp.droolsdrt.domain.RuleDTO;
+import com.lgp.droolsdrt.engineer.RuleExecutor;
 import com.lgp.droolsdrt.fact.EventPropertyManager;
-import com.lgp.droolsdrt.util.AccumulateFlagUtil;
 import com.lgp.droolsdrt.util.DateUtil;
-import org.drools.compiler.kproject.ReleaseIdImpl;
 import org.drools.template.ObjectDataCompiler;
 import org.kie.api.KieServices;
 import org.kie.api.builder.KieBuilder;
 import org.kie.api.builder.KieFileSystem;
 import org.kie.api.builder.Message;
-import org.kie.api.builder.ReleaseId;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -21,11 +18,10 @@ import java.util.*;
 /**
  * @AUTHOR lgp
  * @DATE 2018/9/3 15:58
- * @DESCRIPTION
+ * @DESCRIPTION 规则生成器
  **/
 public class RuleGenerator {
     private static final Logger log = LoggerFactory.getLogger(RuleGenerator.class);
-    ReleaseId releaseId = new ReleaseIdImpl("com.lgp.droolsdrt", "drools-drt", "1.0");
 
     /**
      * 根据传递进来的参数对象生规则
@@ -49,8 +45,7 @@ public class RuleGenerator {
         Map<String, Object> data = prepareData(ruleDTO);
 //        log.info("rule={}", JSON.toJSON(ruleDTO));
         ObjectDataCompiler objectDataCompiler = new ObjectDataCompiler();
-        return objectDataCompiler.compile(Arrays.asList(data), Thread.currentThread().getContextClassLoader()
-                .getResourceAsStream(getTemplateFileName()));
+        return objectDataCompiler.compile(Arrays.asList(data), Thread.currentThread().getContextClassLoader().getResourceAsStream(getTemplateFileName()));
     }
 
     protected String getTemplateFileName() {
@@ -63,18 +58,17 @@ public class RuleGenerator {
     protected Map<String, Object> prepareData(RuleDTO ruleDTO) {
         Map<String, Object> data = new HashMap<>();
         ActivityRule rule = ruleDTO.getRule();
-        data.put("rule", rule.getRuleValue());
-        // 累计标志: 0 - 不累计, 1 - 累计金额, 2 - 累计签到天数
-        data.put("accumulateFlag", AccumulateFlagUtil.getAccumulateFlagByRule(rule.getRuleValue()).getCode());
-        data.put("eventType", EventPropertyManager.getFactClassByEvent(rule.getEvent()).getName());
-        data.put("ruleId", rule.getId());
-        data.put("awardeeType", rule.getAwardeeType());
         data.put("ruleCode", ruleDTO.hashCode());
-//        data.put("joinChannels", ruleDTO.getJoinChannel());
-        data.put("priority", rule.getPriority());
         data.put("beginTime", DateUtil.dateToStringFormat(ruleDTO.getBeginTime(), "dd-MMM-yyyy"));
-
         data.put("endTime", DateUtil.dateToStringFormat(ruleDTO.getEndTime(), "dd-MMM-yyyy"));
+        data.put("eventType", EventPropertyManager.getFactClassByEvent(rule.getEvent()).getName());
+        data.put("rule", rule.getRuleValue());
+        data.put("awardeeType", rule.getAwardeeType());
+//         累计标志: 0 累计标志- 不累计, 1 - 累计金额, 2 - 累计签到天数
+//        data.put("accumulateFlag", AccumulateFlagUtil.getAccumulateFlagByRule(rule.getRuleValue()).getCode());
+//        data.put("ruleId", rule.getId());
+//        data.put("joinChannels", ruleDTO.getJoinChannel());
+//        data.put("priority", rule.getPriority());
 //        log.info("data={}", JSON.toJSON(data));
         return data;
     }
@@ -87,10 +81,10 @@ public class RuleGenerator {
     private void createOrRefreshDrlInMemory(List<String> rules) {
         KieServices kieServices = KieServices.Factory.get();
         KieFileSystem kieFileSystem = kieServices.newKieFileSystem();
-        kieFileSystem.generateAndWritePomXML(getReleaseId());
+        kieFileSystem.generateAndWritePomXML(RuleExecutor.getReleaseId());
         for (String str : rules) {
             kieFileSystem.write("src/main/resources/" + UUID.randomUUID() + ".drl", str);
-//            log.info("str={}", str);
+            log.info("str={}", str);
         }
         KieBuilder kb = kieServices.newKieBuilder(kieFileSystem).buildAll();
         if (kb.getResults().hasMessages(Message.Level.ERROR)) {
@@ -107,11 +101,4 @@ public class RuleGenerator {
 
     }
 
-    public ReleaseId getReleaseId() {
-        return releaseId;
-    }
-
-    public void setReleaseId(ReleaseId releaseId) {
-        this.releaseId = releaseId;
-    }
 }

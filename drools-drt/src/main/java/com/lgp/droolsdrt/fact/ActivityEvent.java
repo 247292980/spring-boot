@@ -11,52 +11,7 @@ public enum ActivityEvent {
 
     REGISTER("注册", "regist", (byte) 1),
 
-    /**
-     * 注册
-     */
-    PARTNER_REGISTER("第三方注册", "prregist", (byte) 2),
-
-    // /**
-    // * 登录
-    // */
-
-    // LOGIN("登录", "login"),//登陆事件已废弃，原因：登陆直接作用在于首次登陆，首次登陆已被签到取代。
-
-    /**
-     * 签到
-     */
-    SIGN("签到", "sign", (byte) 3),
-
-    /**
-     * 绑定银行卡
-     */
-    BINDING_BANK("绑定银行卡", "bindbank", (byte) 4),
-
-    /**
-     * 绑定邮箱
-     */
-    BINDING_EMAIL("绑定邮箱", "bindemail", (byte) 5),
-
-    /**
-     * 绑定身份证，实名谁
-     */
-    BINDING_IDCARD("绑定身份证", "bindidcard", (byte) 6),
-
-    /**
-     * 充值
-     */
-    CHARGE("充值", "charge", (byte) 7),
-
-    /**
-     * 投资
-     */
-
-    INVEST("投资", "invest", (byte) 8),
-
-    /**
-     * 红包
-     */
-    RED_PACKET("红包","redpacket",(byte) 9);
+    ;
 
     private String text;
 

@@ -11,7 +11,7 @@ import java.util.Map;
  *
  * @author liuzifeng
  */
-public class CommonUtil {
+public class CopyUtil {
 
     private static final Map<String, BeanCopier> beanCopierMap = new HashMap<String, BeanCopier>();
 

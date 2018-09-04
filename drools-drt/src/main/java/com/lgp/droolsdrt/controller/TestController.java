@@ -15,14 +15,13 @@ import java.util.Map;
 /**
  * @AUTHOR lgp
  * @DATE 2018/9/3 14:46
- * @DESCRIPTION
+ * @DESCRIPTION 测试接口 mysql h5
  **/
 @Controller
 @RequestMapping(value = "")
 public class TestController {
     public static final Logger log = LoggerFactory.getLogger(TestController.class);
-    //    @Autowired
-//    ActivityRuleMapper activityRuleMapper;
+
     @Autowired
     TestService testService;
 
@@ -31,19 +30,6 @@ public class TestController {
         ActivityRule activityRule = testService.select1();
         map.put("hello", JSON.toJSON(activityRule));
         log.info("activityRule={}", JSON.toJSON(activityRule));
-        return "/index";
-    }
-
-    @RequestMapping("/loadRule")
-    public String loadRule(Map<String, Object> map) {
-        testService.loadRule();
-        map.put("hello", " loadRule");
-        return "/index";
-
-    }    @RequestMapping("/useRule")
-    public String useRule(Map<String, Object> map) {
-        testService.useRule();
-        map.put("hello", " useRule");
         return "/index";
     }
 

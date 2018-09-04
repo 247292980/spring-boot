@@ -8,10 +8,9 @@ import java.util.Set;
 
 /**
  * @AUTHOR lgp
- * @DATE 2018/9/3 16:14
- * @DESCRIPTION
+ * 客户基本信息
  **/
-@Fact(value = ActivityEvent.SIGN, prefix = "cust")
+@Fact(value = ActivityEvent.REGISTER, prefix = "cust")
 public class CustomerInfo {
 
     private static final long serialVersionUID = 8519334321117301310L;

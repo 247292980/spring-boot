@@ -7,7 +7,7 @@ import java.time.LocalDateTime;
 /**
  * @AUTHOR lgp
  * @DATE 2018/6/29 11:15
- * @DESCRIPTION
+ * @DESCRIPTION 消息中间件的信息结构
  **/
 public class RegisterMQDTO {
     private String userId;

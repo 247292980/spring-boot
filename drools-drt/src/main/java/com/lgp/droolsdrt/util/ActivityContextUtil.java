@@ -6,6 +6,7 @@ import org.springframework.context.ApplicationContextAware;
 import org.springframework.stereotype.Component;
 
 /**
+ * spring反射获得bean
  */
 @Component
 public class ActivityContextUtil implements ApplicationContextAware {
@@ -17,11 +18,11 @@ public class ActivityContextUtil implements ApplicationContextAware {
         context = applicationContext;
     }
 
-    public static <T> T getBean(Class<T> classz){
+    public static <T> T getBean(Class<T> classz) {
         return context.getBean(classz);
     }
 
-    public static Object getBean(String paramString){
+    public static Object getBean(String paramString) {
         return context.getBean(paramString);
     }
 }

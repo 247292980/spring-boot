@@ -10,7 +10,7 @@ import java.util.Date;
 /**
  * @AUTHOR lgp
  * @DATE 2018/6/28 17:18
- * @DESCRIPTION
+ * @DESCRIPTION 注册fact
  **/
 @Fact(ActivityEvent.REGISTER)
 public class RegisterFact extends BaseFact {

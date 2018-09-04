@@ -7,16 +7,11 @@ import java.util.List;
 
 /**
  * @author lgp
+ * 数据库连接类
  */
 @Mapper
 public interface ActivityRuleMapper {
 
-    /**
-     * select
-     *
-     * @param id
-     * @return
-     */
     ActivityRule selectByPrimaryKey(Integer id);
 
     List<ActivityRule> selectAll();

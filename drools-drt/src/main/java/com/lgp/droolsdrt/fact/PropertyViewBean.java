@@ -3,7 +3,7 @@ package com.lgp.droolsdrt.fact;
 /**
  * @AUTHOR lgp
  * @DATE 2018/9/3 16:10
- * @DESCRIPTION
+ * @DESCRIPTION fact类的属性描述类
  **/
 public class PropertyViewBean {
 

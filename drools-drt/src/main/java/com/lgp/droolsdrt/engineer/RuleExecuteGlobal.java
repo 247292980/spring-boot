@@ -4,7 +4,7 @@ package com.lgp.droolsdrt.engineer;
 import com.lgp.droolsdrt.fact.BaseFact;
 
 /**
- * Created by amos.zhou on 19:24.
+ * 丢到规则去匹配的数据
  */
 public class RuleExecuteGlobal {
 

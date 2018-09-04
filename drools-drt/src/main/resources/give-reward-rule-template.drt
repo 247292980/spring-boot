@@ -15,10 +15,9 @@ package com.lgp.droolsdrt.engineer;
 
 
 import  com.lgp.droolsdrt.util.ActivityContextUtil;
-import  com.lgp.droolsdrt.fact.CustomerInfo;
 import  com.lgp.droolsdrt.fact.RegisterFact;
 import  com.lgp.droolsdrt.fact.BaseFact;
-//import  com.lgp.droolsdrt.service.PrizeSendService;
+import  com.lgp.droolsdrt.service.PrizeSendService;
 
 global com.lgp.droolsdrt.engineer.RuleExecuteGlobal globalParams;
 
@@ -31,8 +30,10 @@ when
    @{eventType}(@{rule})
 then
    System.out.println("发送奖励" +  @{awardeeType});
+   //此处修改result值不太对，应该在下面这些方法设置
+   //globalParams.getResult().setSuccess(1);
    //发奖品
-   //ActivityContextUtil.getBean(PrizeSendService.class).sendAward(globalParams.getUserId(), @{ruleId}, globalParams.getOrderId(), @{awardeeType});
+   ActivityContextUtil.getBean(PrizeSendService.class).sendAward(globalParams,@{awardeeType});
 end
 
 end template

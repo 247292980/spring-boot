@@ -12,15 +12,13 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
+ * 规则执行器
  */
 public class RuleExecutor {
     private static final Logger LOGGER = LoggerFactory.getLogger(RuleExecutor.class);
     static ReleaseId releaseId = new ReleaseIdImpl("com.lgp.droolsdrt", "drools-drt", "1.0");
-
     private static KieBase kieBase;
 
-    private RuleExecutor() {
-    }
 
     /**
      * 单例(非线程安全,避免影响性能)
@@ -60,7 +58,6 @@ public class RuleExecutor {
      */
     public static RuleExecutorResult execute(BaseFact fact, String orderId) {
         LOGGER.info("RuleExecutor|execute|fact={}", JSON.toJSON(fact));
-
         StatelessKieSession statelessKieSession = getKieBase().newStatelessKieSession();
         RuleExecuteGlobal global = new RuleExecuteGlobal();
         global.setUserId(fact.getUserId());
@@ -69,6 +66,7 @@ public class RuleExecutor {
         global.setResult(new RuleExecutorResult());
         statelessKieSession.getGlobals().set("globalParams", global);
         statelessKieSession.execute(fact);
+
         return global.getResult();
     }
 

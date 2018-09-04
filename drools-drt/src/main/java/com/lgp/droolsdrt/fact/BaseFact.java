@@ -1,6 +1,7 @@
 package com.lgp.droolsdrt.fact;
 
 /**
+ * 基类fact
  */
 public class BaseFact {
 

@@ -2,6 +2,9 @@ package com.lgp.droolsdrt.domain;
 
 import java.util.Date;
 
+/**
+ * 数据库的规则结构
+ */
 public class ActivityRule {
     private Integer id;
 

@@ -12,7 +12,7 @@ import java.util.Map;
 /**
  * @AUTHOR lgp
  * @DATE 2018/9/3 16:10
- * @DESCRIPTION
+ * @DESCRIPTION 事件属性管理
  **/
 public class EventPropertyManager {
 
@@ -27,9 +27,6 @@ public class EventPropertyManager {
         commonList.addAll(buildPropertyView(CustomerInfo.class));
     }
 
-    private EventPropertyManager() {
-    }
-
     /**
      * 初始化Fact说明
      */
@@ -42,7 +39,6 @@ public class EventPropertyManager {
     }
 
     private static List<PropertyViewBean> buildPropertyView(Class c) {
-
         List<PropertyViewBean> list = new ArrayList<>();
         Fact fact = (Fact) c.getAnnotation(Fact.class);
         Field[] fields = c.getDeclaredFields();
