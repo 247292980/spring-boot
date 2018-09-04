@@ -16,11 +16,11 @@
         <result column="is_delete" property="isDelete" jdbcType="CHAR"/>
         <result column="is_sms_notice" property="isSmsNotice" jdbcType="CHAR"/>
     </resultMap>
-    <select id="selectAll" resultMap="BaseResultMap" >
+    <select id="selectAll" resultMap="BaseResultMap">
         select
         id, task_id, event, rule_value, priority, awardee_type, send_award_times, create_by,
         create_time, update_by, update_time, is_delete, is_sms_notice
-        from activity_rule
+        from activity_rule WHERE is_delete=0
     </select>
     <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
     select 

@@ -55,19 +55,22 @@ public class RuleService {
     /**
      * 触发规则
      */
-    public void useRule() {
-        BaseFact fact = buildBaseFact("123456");
+    public void useRule(String userId, String phone) {
+        BaseFact fact = buildBaseFact(userId);
+        /**
+         * 因为是uuid所以修改了的规则，重载加载是新的drl，故从数据库动态加载之时，is_delete属性要注意
+         * */
         String orderId = UUID.randomUUID().toString();
         /**
          * 此处应当是从其他服务获取的的消息体，而不是空值
          * */
         RegisterMQDTO domain = new RegisterMQDTO();
-        domain.setTelephone("13712750168");
+        domain.setTelephone(phone);
         try {
             /*可以知道一条信息，匹配了多少个规则，成功了几个*/
             RuleExecutorResult ruleExecutorResult = beforeExecute(orderId, fact, domain);
             log.info("RuleService|useRule|ruleExecutorResult={}", JSON.toJSON(ruleExecutorResult));
-            Assert.isTrue(ruleExecutorResult.getFailure() == 0, String.format("有%d条规则执行失败", ruleExecutorResult.getFailure()));
+//            Assert.isTrue(ruleExecutorResult.getFailure() == 0, String.format("有%d条规则执行失败", ruleExecutorResult.getFailure()));
         } catch (Exception e) {
             log.error("RuleService|useRule|class={},orderId={}, userId={}, 规则执行异常:{}", this.getClass().getName(), orderId, "123456789", e.getMessage(), e);
         }

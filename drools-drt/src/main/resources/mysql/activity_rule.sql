@@ -24,7 +24,6 @@ CREATE TABLE `activity_rule` (
   KEY `idx_task_id` (`task_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=72 DEFAULT CHARSET=utf8 COMMENT='活动任务规则表';
 
-
-INSERT INTO `drools`.`activity_rule` (`id`, `task_id`, `event`, `rule_value`, `priority`, `awardee_type`, `send_award_times`, `create_by`, `create_time`, `update_by`, `update_time`, `is_delete`, `is_sms_notice`) VALUES ('1', '23', 'REGISTER', 'telephone == \"13712750168\"', '0', '1', '-1', 'admin', '0001-01-01 01:01:01', 'lgp', '2018-09-04 09:14:28', '0', '0');
-
+INSERT INTO `drools`.`activity_rule` (`id`, `task_id`, `event`, `rule_value`, `priority`, `awardee_type`, `send_award_times`, `create_by`, `create_time`, `update_by`, `update_time`, `is_delete`, `is_sms_notice`) VALUES ('1', '23', 'REGISTER', 'telephone == \"13712750156\"', '0', '1', '-1', 'admin', '0001-01-01 01:01:01', 'lgp', '2018-09-04 16:17:42', '0', '0');
 INSERT INTO `drools`.`activity_rule` (`id`, `task_id`, `event`, `rule_value`, `priority`, `awardee_type`, `send_award_times`, `create_by`, `create_time`, `update_by`, `update_time`, `is_delete`, `is_sms_notice`) VALUES ('2', '24', 'REGISTER', 'userId== \"123456\"', '0', '2', '-1', 'admin', '0001-01-01 01:01:01', NULL, '2018-09-04 09:18:04', '0', '0');
+INSERT INTO `drools`.`activity_rule` (`id`, `task_id`, `event`, `rule_value`, `priority`, `awardee_type`, `send_award_times`, `create_by`, `create_time`, `update_by`, `update_time`, `is_delete`, `is_sms_notice`) VALUES ('3', '24', 'REGISTER', 'telephone == \"13712750166\"', '0', '3', '-1', 'admin', '0001-01-01 01:01:01', NULL, '2018-09-04 16:17:24', '0', '0');
