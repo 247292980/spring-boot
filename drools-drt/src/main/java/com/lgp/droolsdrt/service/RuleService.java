@@ -41,13 +41,13 @@ public class RuleService {
     public void loadRule() {
         try {
             List<RuleDTO> ruleDTOs = getActivityRuleList();
-            log.info("共有-{}-条加入规则引擎", ruleDTOs.size());
+            log.info("{}条加入规则引擎", ruleDTOs.size());
             if (!ruleDTOs.isEmpty()) {
                 RuleGenerator generator = new RuleGenerator();
                 generator.generateRules(ruleDTOs);
             }
         } catch (Exception e) {
-            log.error("[规则引擎][加载][error]", e);
+            log.error("RuleService.loadRule。e={}",e.getMessage(), e);
         }
     }
 

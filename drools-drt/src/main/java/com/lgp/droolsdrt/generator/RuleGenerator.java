@@ -31,10 +31,12 @@ public class RuleGenerator {
     public void generateRules(List<RuleDTO> ruleDTOs) {
         List<String> ruleDrls = new ArrayList<>();
         for (int i = 0; i < ruleDTOs.size(); i++) {
+            //规则的生成
             String drlString = applyRuleTemplate(ruleDTOs.get(i));
             ruleDrls.add(drlString);
-            log.info("规则引擎加载规则,id-{}", ruleDTOs.get(i).getRule().getId());
+            log.info("规则引擎加载规则,id={}", ruleDTOs.get(i).getRule().getId());
         }
+        //规则的加载
         createOrRefreshDrlInMemory(ruleDrls);
     }
 
@@ -45,11 +47,8 @@ public class RuleGenerator {
         Map<String, Object> data = prepareData(ruleDTO);
 //        log.info("rule={}", JSON.toJSON(ruleDTO));
         ObjectDataCompiler objectDataCompiler = new ObjectDataCompiler();
-        return objectDataCompiler.compile(Arrays.asList(data), Thread.currentThread().getContextClassLoader().getResourceAsStream(getTemplateFileName()));
-    }
-
-    protected String getTemplateFileName() {
-        return "give-reward-rule-template.drt";
+//        模板文件生成drl String
+        return objectDataCompiler.compile(Arrays.asList(data), Thread.currentThread().getContextClassLoader().getResourceAsStream("give-reward-rule-template.drt"));
     }
 
     /**
@@ -64,8 +63,6 @@ public class RuleGenerator {
         data.put("eventType", FactManager.getFactClassByEvent(rule.getEvent()).getName());
         data.put("rule", rule.getRuleValue());
         data.put("awardeeType", rule.getAwardeeType());
-//         累计标志: 0 累计标志- 不累计, 1 - 累计金额, 2 - 累计签到天数
-//        data.put("accumulateFlag", AccumulateFlagUtil.getAccumulateFlagByRule(rule.getRuleValue()).getCode());
 //        data.put("ruleId", rule.getId());
 //        data.put("joinChannels", ruleDTO.getJoinChannel());
 //        data.put("priority", rule.getPriority());

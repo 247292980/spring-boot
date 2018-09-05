@@ -44,7 +44,7 @@ public class RuleExecutor {
      * @author xiaohua 2016年11月8日 下午7:42:04
      */
     public static KieBase updateKieBase() {
-        //充值kiebase
+        //重置kiebase
         kieBase = null;
         return getKieBase();
     }
