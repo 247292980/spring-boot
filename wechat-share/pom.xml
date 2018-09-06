@@ -58,7 +58,12 @@
 			<version>2.0.1.RELEASE</version>
 			<scope>test</scope>
 		</dependency>
-	</dependencies>
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>fastjson</artifactId>
+            <version>1.2.44</version>
+        </dependency>
+    </dependencies>
 
 	<build>
 		<plugins>
