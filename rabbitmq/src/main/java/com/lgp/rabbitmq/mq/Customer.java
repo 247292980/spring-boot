@@ -10,7 +10,7 @@ import java.util.concurrent.TimeoutException;
 /**
  * @AUTHOR lgp
  * @DATE 2018/9/7 17:34
- * @DESCRIPTION
+ * @DESCRIPTION 消费者
  **/
 public class Customer {
     private final static String QUEUE_NAME = "rabbitMQ.lgp";
