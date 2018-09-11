@@ -21,7 +21,7 @@ public class Customer {
         ConnectionFactory factory = new ConnectionFactory();
         //设置RabbitMQ地址
         factory.setHost("localhost");
-        factory.setUsername("liangguiping");
+        factory.setUsername("haha");
         factory.setPassword("123456789");
         factory.setPort(5672);
         try (Connection connection = factory.newConnection(); Channel channel = connection.createChannel()) {

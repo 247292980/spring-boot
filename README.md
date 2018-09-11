@@ -33,4 +33,6 @@ spring-boot型hello world？外加打算加各种各样的功能代码。
 
 14. rabbitmq           简单的mq搭建
 
+15. zookeeper          简单的zk搭建，简单demo，监听器demo，集群监听器demo
+
 
