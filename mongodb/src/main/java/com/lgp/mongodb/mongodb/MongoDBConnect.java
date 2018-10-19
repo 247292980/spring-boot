@@ -1,4 +1,4 @@
-package com.lgp.mongodb.connect;
+package com.lgp.mongodb.mongodb;
 
 import com.mongodb.MongoClient;
 import com.mongodb.MongoCredential;
@@ -18,13 +18,13 @@ import java.util.List;
  * @DATE 2018/10/18 15:58
  * @DESCRIPTION
  **/
-public class Connect {
+public class MongoDBConnect {
     public static String HOST = "127.0.0.1";
     public static String PORT = "27017";
 
     public static void main(String[] args) {
         try {
-            System.out.println("Connect to database begin");
+            System.out.println("MongoDBConnect to database begin");
             //连接到MongoDB服务 如果是远程连接可以替换“localhost”为服务器所在IP地址
             //ServerAddress()两个参数分别为 服务器地址 和 端口
             ServerAddress serverAddress = new ServerAddress("localhost", 27017);
@@ -40,7 +40,7 @@ public class Connect {
             MongoClient mongoClient = new MongoClient(addrs, credentials);
             //连接到数据库
             MongoDatabase mongoDatabase = mongoClient.getDatabase("admin");
-            System.out.println("Connect to database successfully");
+            System.out.println("MongoDBConnect to database successfully");
 
             //创建集合
 //            mongoDatabase.createCollection("test");
