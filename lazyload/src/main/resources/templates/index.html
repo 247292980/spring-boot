@@ -6,26 +6,23 @@
 <body>
 
 <a>easy thymeleaf</a>
-<style>
-    　　.demo img {
-        　　　　width: 736px;
-        　　　　height: 490px;
-        　　　　background: url(images/loading.gif) 50% no-repeat;
-    }
-</style>
 
-<div class="demo">
-    <img class="lazy" src="images/blank.gif" data-echo="images/big.jpg">
-</div>
 
+<img class="" src="images/loading.gif" data-echo="images/big.jpg">
+<!--此外他们把div套在img外面加个class，而且img也有个class，然后根据这两个class写css，
+但是研究了下，这是因为他们不懂src代表什么的意思
+当然最大的可能是他复制代码没想那么多...这情况反而最正常
+-->
+
+<!-- src是懒加载前的图片，多为空或者loading。百度第一的竟然说这两图片插件自带....不过哪怕他是错的，基本都秒懂怎么改...
+data-echo是懒加载后的图片-->
 
 </body>
-<script src="js/echo.min.js"></script>
+<script src="js/echo.js"></script>
 <script>
     Echo.init({
         offset: 0,//离可视区域多少像素的图片可以被加载
-        throttle: 0 //图片延时多少毫秒加载
+        throttle: 1000 //图片延时多少毫秒加载
     });
-
 </script>
 </html>
