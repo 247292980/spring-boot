@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Hello World!</title>
+</head>
+<body>
+
+<a>easy thymeleaf</a>
+<style>
+    　　.demo img {
+        　　　　width: 736px;
+        　　　　height: 490px;
+        　　　　background: url(images/loading.gif) 50% no-repeat;
+    }
+</style>
+
+<div class="demo">
+    <img class="lazy" src="images/blank.gif" data-echo="images/big.jpg">
+</div>
+
+
+</body>
+<script src="js/echo.min.js"></script>
+<script>
+    Echo.init({
+        offset: 0,//离可视区域多少像素的图片可以被加载
+        throttle: 0 //图片延时多少毫秒加载
+    });
+
+</script>
+</html>
