@@ -35,4 +35,10 @@ spring-boot型hello world？外加打算加各种各样的功能代码。
 
 15. zookeeper          简单的zk搭建，简单demo，监听器demo，集群监听器demo
 
+16. mongodb            仅有创建连接和简单的crud
 
+17. mysql的存储过程    有个示例代码，但是代码不重要要想用的好，理解存储进程才是关键
+
+18. echo.js前端懒加载  给前端数据填充学会的技术 echo.js
+
+19. netty              很吊的技术，只写了个简单demo，在跟书敲代码。但是之前有跟书敲springcloud的经验，感觉向这些框架，简单的敲一次书上的例子无用。不如看一个好的开源。https://github.com/luxiaoxun/NettyRpc
