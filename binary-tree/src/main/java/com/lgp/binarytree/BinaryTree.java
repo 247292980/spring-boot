@@ -1,4 +1,4 @@
-package com.lgp.netty.dto;
+package com.lgp.binarytree;
 
 /**
  * @AUTHOR lgp
@@ -10,6 +10,7 @@ import java.util.LinkedList;
 import java.util.Queue;
 import java.util.Stack;
 
+@SuppressWarnings("ALL")
 public class BinaryTree {
 
     private TreeNode root = null;
@@ -20,13 +21,10 @@ public class BinaryTree {
 
     /**
      * 创建一棵二叉树
-     * <pre>
      *           A
      *     B          C
      *  D     E            F
      * 	 X	M   N
-     *  </pre>
-     *
      * @param root
      */
     public void createBinTree(TreeNode root) {
@@ -60,11 +58,11 @@ public class BinaryTree {
         return size(root);
     }
 
-
     private int height(TreeNode subTree) {
-        if (subTree == null)
-            return 0;//递归结束：空树高度为0
-        else {
+        if (subTree == null) {
+            //递归结束：空树高度为0
+            return 0;
+        } else {
             int i = height(subTree.leftChild);
             int j = height(subTree.rightChild);
             return (i < j) ? (j + 1) : (i + 1);
@@ -86,19 +84,22 @@ public class BinaryTree {
     }
 
     public TreeNode parent(TreeNode subTree, TreeNode element) {
-        if (subTree == null)
+        if (subTree == null) {
             return null;
-        if (subTree.leftChild == element || subTree.rightChild == element)
+        }
+        if (subTree.leftChild == element || subTree.rightChild == element) {
             //返回父结点地址
             return subTree;
+        }
         TreeNode p;
         //现在左子树中找，如果左子树中没有找到，才到右子树去找
-        if ((p = parent(subTree.leftChild, element)) != null)
+        if ((p = parent(subTree.leftChild, element)) != null) {
             //递归在左子树中搜索
             return p;
-        else
+        } else {
             //递归在右子树中搜索
             return parent(subTree.rightChild, element);
+        }
     }
 
     public TreeNode getLeftChildNode(TreeNode element) {
@@ -127,11 +128,9 @@ public class BinaryTree {
         }
     }
 
-    public void traverse(TreeNode subTree) {
+    public void visted(TreeNode subTree) {
+        subTree.isVisted = true;
         System.out.println("key:" + subTree.key + "--name:" + subTree.data);
-        ;
-        traverse(subTree.leftChild);
-        traverse(subTree.rightChild);
     }
 
     //前序遍历
@@ -161,7 +160,6 @@ public class BinaryTree {
         }
     }
 
-
     //前序遍历的非递归实现  ABDXEMNCF
     public void nonRecPreOrder(TreeNode p) {
         Stack<TreeNode> stack = new Stack<TreeNode>();
@@ -178,23 +176,6 @@ public class BinaryTree {
             }
         }
     }
-
-    public void preTraversal(TreeNode p) {
-        Stack<TreeNode> a = new Stack<TreeNode>();
-        a.push(p);
-        TreeNode t;
-        while (!a.isEmpty()) {
-            t = a.pop();
-            while (t != null) {
-                System.out.println(t.data);
-                if (t.rightChild != null) {
-                    a.push(t.rightChild);
-                }
-                t = t.leftChild;
-            }
-        }
-    }
-
 
     //中序遍历的非递归实现
     public void nonRecInOrder(TreeNode p) {
@@ -229,8 +210,9 @@ public class BinaryTree {
                 visted(p);
                 //纪录上一个已输出结点
                 node = p;
-                if (stack.empty())
+                if (stack.empty()) {
                     return;
+                }
                 p = stack.pop();
             }
             //处理右子树
@@ -239,14 +221,7 @@ public class BinaryTree {
         }
     }
 
-    public void visted(TreeNode subTree) {
-        subTree.isVisted = true;
-        System.out.println("key:" + subTree.key + "--name:" + subTree.data);
-        ;
-    }
-
-
-    //层次遍历
+    //层次遍历 广度优先遍历
     public void levelIterator(TreeNode n) {
         Queue<TreeNode> queue = new LinkedList<TreeNode>();
         queue.offer(n);
@@ -264,7 +239,6 @@ public class BinaryTree {
         }
     }
 
-
     //测试
     public static void main(String[] args) {
         BinaryTree bt = new BinaryTree();
@@ -281,13 +255,11 @@ public class BinaryTree {
         System.out.println("*******(后序遍历)遍历*****************");
         bt.postOrder(bt.root);
 
-        System.out.println("***非递归实现****(前序遍历)遍历*****************");
-        bt.nonRecPreOrder(bt.root);
-
-//        bt.preTraversal(bt.root);
-
         System.out.println("层次遍历*****************");
         bt.levelIterator(bt.root);
+
+        System.out.println("***非递归实现****(前序遍历)遍历*****************");
+        bt.nonRecPreOrder(bt.root);
 
         System.out.println("***非递归实现****(中序遍历)遍历*****************");
         bt.nonRecInOrder(bt.root);
@@ -295,6 +267,4 @@ public class BinaryTree {
         System.out.println("***非递归实现****(后序遍历)遍历*****************");
         bt.noRecPostOrder(bt.root);
     }
-
-
 }

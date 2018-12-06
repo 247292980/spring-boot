@@ -33,6 +33,7 @@
         <module>drools-drt</module>
         <module>drools</module>
         <module>aop</module>
+        <module>binary-tree</module>
     </modules>
 
     <dependencies>
