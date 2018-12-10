@@ -10,7 +10,6 @@ import java.util.LinkedList;
 import java.util.Queue;
 import java.util.Stack;
 
-@SuppressWarnings("ALL")
 public class BinaryTree {
 
     private TreeNode root = null;
