@@ -42,3 +42,9 @@ spring-boot型hello world？外加打算加各种各样的功能代码。
 18. echo.js前端懒加载  给前端数据填充学会的技术 echo.js
 
 19. netty              很吊的技术，只写了个简单demo，在跟书敲代码。但是之前有跟书敲springcloud的经验，感觉向这些框架，简单的敲一次书上的例子无用。不如看一个好的开源。https://github.com/luxiaoxun/NettyRpc
+
+20. postgresql         postgresql的增删改查
+
+21. binary-tree        二叉树的前中后排序实现
+
+22. rw-lock            redis的读写锁实现  
