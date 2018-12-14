@@ -2,9 +2,6 @@ package com.lap.rwlock;
 
 import java.util.concurrent.locks.Lock;
 
-import static com.lap.rwlock.ReadWriteLockConstant.READ_LOCK;
-import static com.lap.rwlock.ReadWriteLockConstant.WRITE_LOCK;
-
 /**
  * @AUTHOR lgp
  * @DATE 2018/11/28 11:40
@@ -13,6 +10,9 @@ import static com.lap.rwlock.ReadWriteLockConstant.WRITE_LOCK;
 public class ReadWriteLock implements java.util.concurrent.locks.ReadWriteLock {
 
     String name;
+    /**
+     * 毫秒
+    * */
     Long timeInterval;
 
     public ReadWriteLock(String name, Long timeInterval) {
@@ -22,12 +22,12 @@ public class ReadWriteLock implements java.util.concurrent.locks.ReadWriteLock {
 
     @Override
     public Lock readLock() {
-        return new ReentrantLock(String.format(READ_LOCK, getName()), getTimeInterval());
+        return new ReentrantLock(this, LockModel.READ);
     }
 
     @Override
     public Lock writeLock() {
-        return new ReentrantLock(String.format(WRITE_LOCK, getName()), getTimeInterval());
+        return new ReentrantLock(this, LockModel.WRITE);
     }
 
     public Long getTimeInterval() {

@@ -7,9 +7,6 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.Lock;
 
-import static com.lap.rwlock.ReadWriteLockConstant.READ_MODEL;
-import static com.lap.rwlock.ReadWriteLockConstant.WRITE_MODEL;
-
 /**
  * @AUTHOR lgp
  * @DATE 2018/11/28 17:49
@@ -19,13 +16,17 @@ public class ReentrantLock implements Lock {
 
     @Autowired
     RedisTemplate redisTemplate;
-    String name;
-    Long timeInterval;
-    Long timeout = 0L;
 
-    public ReentrantLock(String name, Long timeInterval) {
-        this.name = name;
-        this.timeInterval = timeInterval;
+    ReadWriteLock rwLock;
+    LockModel lockModel;
+    String lockName;
+    Long deadTime = 0L;
+    boolean localWriteLocked = false;
+
+    public ReentrantLock(ReadWriteLock rwLock, LockModel lockModel) {
+        this.rwLock = rwLock;
+        this.lockModel = lockModel;
+        setLockName(lockModel);
     }
 
     @Override
@@ -39,55 +40,73 @@ public class ReentrantLock implements Lock {
 
     @Override
     public void lockInterruptibly() throws InterruptedException {
-        if (getLockModel().equals(READ_MODEL)) {
-            if (tryLock()) {
-                throw new InterruptedException();
-            }
-            setTimeout(System.currentTimeMillis() + getTimeInterval());
-            redisTemplate.opsForValue().getAndSet(getName(), getTimeout());
-        } else {
-            if (tryLock()) {
-                throw new InterruptedException();
-            }
-            setTimeout(System.currentTimeMillis() + getTimeInterval());
-            redisTemplate.opsForValue().getAndSet(getName(), getTimeout());
-            /*避免脏读*/
-            while (null != redisTemplate.opsForValue().get(getOpposeLockName())) {
-                Thread.sleep(300);
-            }
+        switch (getLockModel()) {
+            case WRITE:
+                if (!isLocalWriteLocked()) {
+                    setLockModel(LockModel.READ);
+                    while (!tryLock()) {
+                        Thread.sleep(500);
+                    }
+                    redisTemplate.opsForValue().set(getLockName(), getDeadTime(), getRwLock().getTimeInterval());
 
+                    setLockModel(LockModel.WRITE);
+                    while (!tryLock()) {
+                        Thread.sleep(500);
+                    }
+                    setLocalWriteLocked(true);
+                } else {
+                    /**
+                     * 本机持有写锁,等待之前的写操作完成
+                     * */
+                    while (!isLocalWriteLocked()) {
+                        Thread.sleep(500);
+                    }
+
+                    /**
+                     * 更新写锁的过期时间
+                     * */
+                    redisTemplate.opsForValue().set(getLockName(), getDeadTime(), getRwLock().getTimeInterval());
+                    setLocalWriteLocked(true);
+                }
+                break;
+            case READ:
+                while (!tryLock()) {
+                    Thread.sleep(500);
+                }
+                setDeadTime();
+                redisTemplate.opsForValue().set(getLockName(), getDeadTime(), getRwLock().getTimeInterval());
+                break;
         }
     }
 
     @Override
     public boolean tryLock() {
-        if (getLockModel().equals(READ_MODEL)) {
-            /*写锁不存在，返回false*/
-            return null != redisTemplate.opsForValue().get(getOpposeLockName());
-        } else {
-            Long writeTimeout = (Long) redisTemplate.opsForValue().get(getName());
-            /*没人持有写锁*/
-            if (null == writeTimeout) {
-                return false;
-            }
-            /*重入*/
-            if (writeTimeout < getTimeout()) {
-                return false;
-            }
-            return true;
+        boolean lockExist = false;
+        switch (getLockModel()) {
+            case WRITE:
+                lockExist = null != redisTemplate.opsForValue().get(getOpposeLockName());
+                break;
+            case READ:
+                lockExist = null != redisTemplate.opsForValue().get(getOpposeLockName());
+                break;
+            default:
+                break;
         }
+        return lockExist;
     }
 
     @Override
     public void unlock() {
-        if (getLockModel().equals(READ_MODEL)) {
-            if (System.currentTimeMillis() > getTimeout()) {
-                redisTemplate.delete(getName());
-            }
-        } else {
-            if (System.currentTimeMillis() < getTimeout()) {
-                redisTemplate.delete(getName());
-            }
+        switch (getLockModel()) {
+            case WRITE:
+                if (isLocalWriteLocked()) {
+                    setLocalWriteLocked(false);
+                }
+                redisTemplate.delete(getLockName());
+                break;
+            case READ:
+                redisTemplate.delete(getLockName());
+                break;
         }
     }
 
@@ -100,40 +119,66 @@ public class ReentrantLock implements Lock {
     }
 
     /**
-     * 不提供控制锁线程的操作
+     * 不提供控制锁的操作
      */
     @Override
     public Condition newCondition() {
         throw new UnsupportedOperationException();
     }
 
-    public String getName() {
-        return name;
-    }
-
     public Long getTimeInterval() {
-        return timeInterval;
+        return rwLock.getTimeInterval();
     }
 
-    public Long getTimeout() {
-        return timeout;
+    public Long getDeadTime() {
+        return deadTime;
     }
 
-    public void setTimeout(Long timeout) {
-        this.timeout = timeout;
-    }
-
-    public String getLockModel() {
-        if (getName().contains(WRITE_MODEL)) {
-            return WRITE_MODEL;
-        }
-        return READ_MODEL;
+    public void setDeadTime() {
+        this.deadTime = System.currentTimeMillis() + getTimeInterval();
     }
 
     private String getOpposeLockName() {
-        if (getName().contains(WRITE_MODEL)) {
-            return getName().replace(WRITE_MODEL, READ_MODEL);
+        String opposeLockName = "";
+        switch (getLockModel()) {
+            case READ:
+                opposeLockName = String.format(LockModel.WRITE.getLockFormat(), getRwLock().getName());
+                break;
+            case WRITE:
+                opposeLockName = String.format(LockModel.READ.getLockFormat(), getRwLock().getName());
+                break;
+            default:
+                break;
         }
-        return getName().replace(READ_MODEL, WRITE_MODEL);
+        return opposeLockName;
+    }
+
+    public String getLockName() {
+        return lockName;
+    }
+
+    public void setLockName(LockModel lockModel) {
+        this.lockName = String.format(lockModel.getLockFormat(), getRwLock().getName());
+    }
+
+
+    public ReadWriteLock getRwLock() {
+        return rwLock;
+    }
+
+    public void setLockModel(LockModel lockModel) {
+        this.lockModel = lockModel;
+    }
+
+    public LockModel getLockModel() {
+        return lockModel;
+    }
+
+    public boolean isLocalWriteLocked() {
+        return localWriteLocked;
+    }
+
+    public void setLocalWriteLocked(boolean localWriteLocked) {
+        this.localWriteLocked = localWriteLocked;
     }
 }
