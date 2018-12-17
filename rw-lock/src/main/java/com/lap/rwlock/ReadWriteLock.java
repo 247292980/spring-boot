@@ -8,11 +8,13 @@ import java.util.concurrent.locks.Lock;
  * @DESCRIPTION
  **/
 public class ReadWriteLock implements java.util.concurrent.locks.ReadWriteLock {
-
+    /**
+     * 应该是唯一标识组成的key，可以使线程id，可以使用户id，可以使服务器id
+     */
     String name;
     /**
      * 毫秒
-    * */
+     */
     Long timeInterval;
 
     public ReadWriteLock(String name, Long timeInterval) {

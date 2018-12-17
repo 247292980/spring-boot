@@ -24,6 +24,7 @@ public class ReentrantLock implements Lock {
     boolean localWriteLocked = false;
 
     public ReentrantLock(ReadWriteLock rwLock, LockModel lockModel) {
+        
         this.rwLock = rwLock;
         this.lockModel = lockModel;
         setLockName(lockModel);
@@ -56,15 +57,12 @@ public class ReentrantLock implements Lock {
                     setLocalWriteLocked(true);
                 } else {
                     /**
-                     * 本机持有写锁,等待之前的写操作完成
+                     * 重入，本机持有写锁,等待之前的写操作完成
                      * */
                     while (!isLocalWriteLocked()) {
                         Thread.sleep(500);
                     }
 
-                    /**
-                     * 更新写锁的过期时间
-                     * */
                     redisTemplate.opsForValue().set(getLockName(), getDeadTime(), getRwLock().getTimeInterval());
                     setLocalWriteLocked(true);
                 }
@@ -81,18 +79,7 @@ public class ReentrantLock implements Lock {
 
     @Override
     public boolean tryLock() {
-        boolean lockExist = false;
-        switch (getLockModel()) {
-            case WRITE:
-                lockExist = null != redisTemplate.opsForValue().get(getOpposeLockName());
-                break;
-            case READ:
-                lockExist = null != redisTemplate.opsForValue().get(getOpposeLockName());
-                break;
-            default:
-                break;
-        }
-        return lockExist;
+        return  null != redisTemplate.opsForValue().get(getOpposeLockName());
     }
 
     @Override
