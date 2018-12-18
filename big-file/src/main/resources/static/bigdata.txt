@@ -1,0 +1,23 @@
+delete的语法：
+
+delete from tbCategory where categoryName='QQ' //正确的写法，from不能少
+
+------------------------------------------------------------------------------------------------------------------
+
+插入语句如下：
+
+insert into tbCategory (categoryName) values ('Test')    //categoryName是列名
+
+----------------------------------------------------------------------------------------------------------------
+
+select更简单了：
+
+select  *  from tbUser
+
+-----------------------------------------------------------------------------------------------------------------
+
+更新语句：
+
+update tbCategory set categoryName='QQ' where categoryId=2
+
+create table user(id int(10) primary key AUTO_INCREMENT,  name varchar(20),  pwd varchar(20));  
