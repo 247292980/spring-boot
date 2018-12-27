@@ -8,6 +8,7 @@ public class BigFile {
     private static String input_path = System.getProperty("user.dir") + File.separator + "data" + File.separator + "bigdata.txt";
     private static String output_path_format1 = System.getProperty("user.dir") + File.separator + "data" + File.separator + "part_1_%s.txt";
     private static String output_path_format2 = System.getProperty("user.dir") + File.separator + "data" + File.separator + "part_2_%s.txt";
+    private static  int bufSize = 10 * 1024 * 1024;
 
     public static void main(String[] args) {
         try {
@@ -21,6 +22,7 @@ public class BigFile {
 
     private static void makeBigData() throws IOException {
         FileWriter fw = new FileWriter(input_path);
+
         String line = "start ";
         for (int i = 0; i < 20000; i++) {
             line += i;
@@ -34,7 +36,6 @@ public class BigFile {
     private static void fileRead() throws IOException {
         long time = System.currentTimeMillis();
 
-        int bufSize = 10 * 1024 * 1024;
         byte[] bs = new byte[bufSize];
         ByteBuffer byteBuf = ByteBuffer.allocate(bufSize);
         FileChannel channel = new RandomAccessFile(input_path, "r").getChannel();
@@ -59,8 +60,7 @@ public class BigFile {
         long time = System.currentTimeMillis();
         BufferedInputStream bis = new BufferedInputStream(new FileInputStream(new File(input_path)));
 
-        int bufferSize = 10 * 1024 * 1024;
-        BufferedReader in = new BufferedReader(new InputStreamReader(bis, "utf-8"), bufferSize);
+        BufferedReader in = new BufferedReader(new InputStreamReader(bis, "utf-8"), bufSize);
         FileWriter fw = new FileWriter(String.format(output_path_format2, 0));
 
         for (int i = 0; in.ready(); i++) {
