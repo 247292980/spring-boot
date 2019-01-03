@@ -12,9 +12,9 @@ public class BigFile {
 
     public static void main(String[] args) {
         try {
-//            makeBigData();
-            fileRead();
-            bufferRead();
+            makeBigData();
+//            fileRead();
+//            bufferRead();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -24,7 +24,7 @@ public class BigFile {
         FileWriter fw = new FileWriter(input_path);
 
         String line = "start ";
-        for (int i = 0; i < 20000; i++) {
+        for (int i = 0; i < 20; i++) {
             line += i;
             fw.append(line + System.getProperty("line.separator"));
         }

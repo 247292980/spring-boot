@@ -40,14 +40,17 @@ public enum CommonErrorCode implements ErrorCode {
         return INTERNAL_ERROR;
     }
 
+    @Override
     public String getCode() {
         return this.name();
     }
 
+    @Override
     public int getStatus() {
         return this.status;
     }
 
+    @Override
     public String getMessage() {
         return this.message;
     }

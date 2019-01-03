@@ -86,7 +86,7 @@ public class LogAspect {
         stringBuilder.append("-开始 ");
 
         String userId = getUserId();
-        if (userId.equals("")) {
+        if ("".equals(userId)) {
             stringBuilder.append("(用户未登录){");
         } else {
             stringBuilder.append("{userId=").append(userId);

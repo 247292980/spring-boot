@@ -1,4 +1,4 @@
-package com.lgp.netty.netty;
+package com.lgp.netty.netty_ch1;
 
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.ChannelFuture;
@@ -13,36 +13,41 @@ import java.net.InetSocketAddress;
 /**
  * @AUTHOR lgp
  * @DATE 2018/10/24 17:14
- * @DESCRIPTION
+ * @DESCRIPTION 请先看EchoServer和 EchoServerHandler
  **/
-public class NettyClientDemo {
-    public static String host = "127.0.0.1";
-    public static int port = 1234;
+public class EchoClient {
+    /*服务器的地址*/
+    public final String host;
+    public final int port;
+
+    public EchoClient(String host, int port) {
+        this.host = host;
+        this.port = port;
+    }
 
     public static void main(String[] args) throws Exception {
+        new EchoClient("127.0.0.1", 1234).start();
+    }
+
+    public void start() throws Exception {
         EventLoopGroup group = new NioEventLoopGroup();
         try {
-            //创建 Bootstrap
+            /*注意client是Bootstrap，server是ServerBootstrap*/
             Bootstrap b = new Bootstrap();
-            //指定 EventLoopGroup 以处理客户端事件；需要适用于 NIO 的实现
             b.group(group)
-                    //适用于 NIO 传输的Channel 类型
                     .channel(NioSocketChannel.class)
-                    //设置服务器的InetSocketAddress
+                    //1 配置远程的服务器地址
                     .remoteAddress(new InetSocketAddress(host, port))
-                    //在创建Channel时，向 ChannelPipeline中添加一个 EchoClientHandler实例
                     .handler(new ChannelInitializer<SocketChannel>() {
                         @Override
                         public void initChannel(SocketChannel ch) throws Exception {
                             ch.pipeline().addLast(new EchoClientHandler());
                         }
                     });
-            //连接到远程节点，阻塞等待直到连接完成
+            //2 连接服务器，并等待连接完成
             ChannelFuture f = b.connect().sync();
-            //阻塞，直到Channel 关闭
             f.channel().closeFuture().sync();
         } finally {
-            //关闭线程池并且释放所有的资源
             group.shutdownGracefully().sync();
         }
     }

@@ -6,7 +6,6 @@
 <generatorConfiguration>
     <!--mysql 连接数据库jar 这里选择自己本地位置-->
     <!--理论上只要不改idea默认maven的设置，基本不会变，但我改了-->
-    <!--<classPathEntry location="D:/GitProjects/mybatis-generator/src/main/resources/mysql-connector-java-5.1.44.jar" />-->
     <context id="testTables" targetRuntime="MyBatis3">
         <commentGenerator>
             <!-- 是否去除自动生成的注释 true：是 ： false:否 -->
@@ -14,8 +13,8 @@
         </commentGenerator>
         <!--数据库连接的信息：驱动类、连接地址、用户名、密码 -->
         <jdbcConnection driverClass="com.mysql.jdbc.Driver"
-                        connectionURL="jdbc:mysql://127.0.0.1:3306/webmanager?characterEncoding=UTF-8"
-                        userId="root" password="123456789">
+                        connectionURL="jdbc:mysql://mysql-cg.tuandai800.cn/td_activity?allowMultiQueries=true"
+                        userId="root" password="QVkiHClEnDfSW4o9">
         </jdbcConnection>
         <!-- 默认false，把JDBC DECIMAL 和 NUMERIC 类型解析为 Integer，为 true时把JDBC DECIMAL 和
            NUMERIC 类型解析为java.math.BigDecimal -->
@@ -44,8 +43,8 @@
             <property name="enableSubPackages" value="false"/>
         </javaClientGenerator>
         <!-- 指定数据库表 -->
-        <!--<table schema="" tableName="one"></table>-->
+        <table schema="" tableName="t_number_activity"></table>
         <!--但是还是通杀好！-->
-        <table schema="" tableName="%"></table>
+        <!--<table schema="" tableName="%"></table>-->
     </context>
 </generatorConfiguration>

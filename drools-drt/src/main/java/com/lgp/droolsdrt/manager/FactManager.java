@@ -54,7 +54,7 @@ public class FactManager {
             /**
              * 如果Fact设了前缀，就在属性上增加前缀
              */
-            if (fact.prefix() != null && !fact.prefix().equals("")) {
+            if (fact.prefix() != null && !"".equals(fact.prefix())) {
                 pb.setName(fact.prefix() + "." + f.getName());
             } else {
                 pb.setName(f.getName());
