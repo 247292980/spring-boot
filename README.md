@@ -3,6 +3,7 @@
 
 #### 项目介绍
 spring-boot型hello world？外加打算加各种各样的功能代码。
+fork好多，求各位大神来几个pr看看你们优化的代码是怎样的，毕竟gayhub是个互相学习的地方
 
 #### 知识点
 1. spring-boot         快捷开发？233333
