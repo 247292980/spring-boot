@@ -65,9 +65,10 @@ public class ShardingJdbc {
 
         DataSource dataSource = new ShardingDataSource(shardingRule);
         String sql =
-                "SELECT i.* FROM t_order o JOIN t_order_item i " +
-                        "ON o.order_id=i.order_id " +
-                        "WHERE o.user_id= ? AND o.order_id = ?";
+//                "SELECT i.* FROM t_order o JOIN t_order_item i " +
+//                        "ON o.order_id=i.order_id " +
+//                        "WHERE o.user_id= ? AND o.order_id = ?";
+                "SELECT o.* FROM t_order o WHERE o.user_id in (1, 2, 3)";
         try {
             Connection connection = dataSource.getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
@@ -77,10 +78,10 @@ public class ShardingJdbc {
 
 //             先根据分库规则去了sharding_1
 //             o.user_id=11
-            preparedStatement.setInt(1, 11);
+//            preparedStatement.setInt(1, 11);
 //            再根据分表规则去了t_order_0,t_order_item_0
 //            o.order_id=1000
-            preparedStatement.setInt(2, 1000);
+//            preparedStatement.setInt(2, 1000);
 
             ResultSet result = preparedStatement.executeQuery();
             while (result.next()) {
