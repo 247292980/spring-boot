@@ -14,7 +14,8 @@ import java.util.Map;
 /**
  * @AUTHOR lgp
  * @DATE 2018/4/16 21:27
- * @DESCRIPTION
+ * @DESCRIPTION 
+ *  net服务器为公司的授权服务器地址，若无请无视
  **/
 @Component
 public class WeiXinHandler {
